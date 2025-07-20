@@ -14,7 +14,12 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/category/:id',
-                element:<CategoryNews></CategoryNews>
+                element:<CategoryNews></CategoryNews>,
+                loader: async () => {
+                    const response = await fetch('/news.json');
+                    return response;
+                }
+                
             }
         ]
         

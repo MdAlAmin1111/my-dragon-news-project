@@ -15,6 +15,10 @@
   --color-accent: #706F6F;
 }
 
+a.active{
+    @apply bg-base-300;
+}
+
 *{
     font-family: "Poppins", sans-serif;
 }
