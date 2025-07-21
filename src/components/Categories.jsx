@@ -1,17 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { use } from 'react';
 import { NavLink } from 'react-router';
+// import { useEffect, useState } from 'react';
 
-// const categoryPromise = fetch('/categories.json')
-//     .then(res => res.json());
+const categoryPromise = fetch('/categories.json')
+    .then(res => res.json());
 
 const Categories = () => {
-    const [categories, setCategories] = useState([]);
-    useEffect(()=>{
-  fetch('/categories.json').then(res=>res.json()).then(data=>setCategories(data));
-    }, []);
-    
-    // const categories = use(categoryPromise);
-    // console.log(categories);
+    // const [categories, setCategories] = useState([]);
+    // useEffect(() => {
+    //     fetch('/categories.json').then(res => res.json()).then(data => setCategories(data));
+    // }, []);
+
+    const categories = use(categoryPromise);
+    console.log(categories);
 
     return (
         <div>

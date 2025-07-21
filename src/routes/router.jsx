@@ -7,22 +7,22 @@ export const router = createBrowserRouter([
     {
         path: '/',
         element: <HomeLayout></HomeLayout>,
-        children:[
+        children: [
             {
                 index: true,
                 element: <Home></Home>
             },
             {
                 path: '/category/:id',
-                element:<CategoryNews></CategoryNews>,
+                element: <CategoryNews></CategoryNews>,
                 loader: async () => {
                     const response = await fetch('/news.json');
                     return response;
                 }
-                
+
             }
         ]
-        
+
     },
     {
         path: '/auth',
