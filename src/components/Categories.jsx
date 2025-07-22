@@ -6,13 +6,14 @@ const categoryPromise = fetch('/categories.json')
     .then(res => res.json());
 
 const Categories = () => {
+    const categories = use(categoryPromise);
+
+
     // const [categories, setCategories] = useState([]);
     // useEffect(() => {
     //     fetch('/categories.json').then(res => res.json()).then(data => setCategories(data));
     // }, []);
 
-    const categories = use(categoryPromise);
-    console.log(categories);
 
     return (
         <div>
