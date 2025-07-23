@@ -1,10 +1,14 @@
-import React, { useContext } from 'react';
-import { Link } from 'react-router';
+import React, { useContext, useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router';
 import { AuthContext } from '../provider/AuthProvider';
 
 const Login = () => {
 
+    const [error, setError] = useState('');
     const { loginUser } = useContext(AuthContext);
+    const location = useLocation();
+    const navigate = useNavigate();
+    console.log(location, navigate);
 
     const handleLogin = (e) => {
         e.preventDefault();
@@ -14,15 +18,19 @@ const Login = () => {
 
         loginUser(email, password)
             .then((userCredential) => {
+                navigate(`${location.state ? location.state : '/'}`);
                 alert(`successfully logged in using ${userCredential.user.email}`);
                 // Signed in 
                 // const user = userCredential.user;
                 // ...
             })
             .catch((error) => {
-                // const errorCode = error.code;
-                const errorMessage = error.message;
-                alert(errorMessage)
+                const errorCode = error.code;
+
+                // const errorMessage = error.message;
+                setError(errorCode);
+
+                // alert(errorMessage)
             });;
     }
 
@@ -34,12 +42,16 @@ const Login = () => {
                     <form onSubmit={handleLogin} className="fieldset px-25 space-y-3">
                         {/* email  */}
                         <label className="label font-semibold text-xl">Email Address</label>
-                        <input name='email' type="email" className="input w-full" placeholder="Enter Your Email Address" />
+                        <input required name='email' type="email" className="input w-full" placeholder="Enter Your Email Address" />
                         {/* password  */}
                         <label className="label font-semibold text-xl">Password</label>
-                        <input name='password' type="password" className="input w-full" placeholder="Enter Your Password" />
+                        <input required name='password' type="password" className="input w-full" placeholder="Enter Your Password" />
 
                         <div><a className="link link-hover">Forgot password?</a></div>
+                        {/* error message  */}
+
+                        {error && <p className="text-error">${error}</p>}
+
                         {/* submit button  */}
                         <button type='submit' className="btn btn-neutral mt-4 bg-primary">Login</button>
                     </form>

@@ -4,7 +4,7 @@ import { IoMdArrowRoundBack } from 'react-icons/io';
 import { Link } from 'react-router';
 
 const NewsDetailsCard = ({ news }) => {
-    console.log(news);
+
     return (
         <div className='border p-7 border-base-300 rounded-[5px]'>
             <img className='w-full h-[400px] object-cover' src={news.image_url} alt="" />

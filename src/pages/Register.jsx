@@ -1,32 +1,40 @@
-import React, { use } from 'react';
+import React, { use, useState } from 'react';
 import { Link } from 'react-router';
 import { AuthContext } from '../provider/AuthProvider';
 
 const Register = () => {
 
+    const [nameError, setNameError] = useState('');
     const { createUser, setUserInfo } = use(AuthContext);
+    const [error, setError] = useState('');
 
     const handleRegister = (e) => {
         e.preventDefault();
 
         const name = e.target.name.value;
+        if (name.length < 3) {
+            setNameError('Name should be at least 3 character');
+        }
+        else {
+            setNameError('');
+        }
+
         const photoUrl = e.target.photoUrl.value;
         const email = e.target.email.value;
         const password = e.target.password.value;
 
         createUser(email, password)
             .then((result) => {
-                console.log(result);
                 const user = result.user;
                 setUserInfo(user);
+                setError('');
             })
             .catch((error) => {
-                console.log(error);
+
                 const errorCode = error.code;
-                console.log(errorCode);
-                const errorMessage = error.message;
-                console.log(errorMessage);
-                alert(errorMessage);
+                setError(errorCode)
+                // const errorMessage = error.message;
+                // alert(errorMessage);
 
             })
 
@@ -41,6 +49,9 @@ const Register = () => {
                     <form onSubmit={handleRegister} className="fieldset px-25 space-y-2">
                         <label className="label font-semibold text-xl">Your Name</label>
                         <input required name='name' type="text" className="input w-full" placeholder="Enter Your Name" />
+                        {
+                            nameError && <p className='text-red-500'>${nameError}</p>
+                        }
                         <label className="label font-semibold text-xl">Photo URL</label>
                         <input required name='photoUrl' type="text" className="input w-full" placeholder="Enter Photo URL" />
                         <label className="label font-semibold text-xl">Email Address</label>
@@ -51,7 +62,11 @@ const Register = () => {
                             <input type="checkbox" defaultChecked className="checkbox" />
                             Accept Terms & Conditions
                         </label>
+                        {
+                            error && <p className='text-error'>${error}</p>
+                        }
                         <button type='submit' className="btn btn-neutral mt-4 bg-primary">Register</button>
+
                     </form>
                     <p className='text-center font-semibold text-accent'>Already Have An Account? <Link to={'/auth/login'} className='text-secondary'>Login</Link></p>
                 </div>
