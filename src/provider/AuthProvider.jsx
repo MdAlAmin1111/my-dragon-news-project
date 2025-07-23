@@ -6,27 +6,32 @@ export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
     const [userInfo, setUserInfo] = useState(null);
-    console.log(userInfo);
+    const [loading, setLoading] = useState(true);
+    
+    console.log(userInfo, loading);
 
     const createUser = (email, password) => {
+        setLoading(true);
         return createUserWithEmailAndPassword(auth, email, password);
     }
 
     const logOut = () => {
         signOut(auth).then(() => {
-           alert('Successfully Logged Out');
+            alert('Successfully Logged Out');
         }).catch((error) => {
-           alert(error);
+            alert(error);
         });;
     }
 
-    const loginUser = (email, password)=>{
-        return signInWithEmailAndPassword(auth, email, password );
+    const loginUser = (email, password) => {
+        setLoading(true)
+        return signInWithEmailAndPassword(auth, email, password);
     }
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             setUserInfo(currentUser);
+            setLoading(false);
         });
         return () => {
             unsubscribe()
@@ -38,7 +43,9 @@ const AuthProvider = ({ children }) => {
         setUserInfo,
         createUser,
         logOut,
-        loginUser
+        loginUser,
+        loading,
+        setLoading
     };
 
 

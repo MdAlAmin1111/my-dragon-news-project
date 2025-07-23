@@ -3,9 +3,11 @@ import { FaRegEye, FaShareAlt } from 'react-icons/fa';
 import { AiFillStar } from 'react-icons/ai';
 import moment from 'moment';
 import { CiBookmark } from 'react-icons/ci';
+import { Link } from 'react-router';
 
 const NewsCard = ({ news }) => {
     const {
+        id,
         title,
         author,
         image_url,
@@ -56,16 +58,16 @@ const NewsCard = ({ news }) => {
             </figure>
 
             {/* Details */}
-            <div className="px-4 pt-2 text-sm text-gray-700">
+            <div className="space-y-3 px-4 pt-2 text-sm text-gray-700">
                 <p>
                     {details.length > 250
                         ? `${details.slice(0, 250)}...`
                         : details}
                 </p>
-                <p className="text-primary font-semibold mt-2 cursor-pointer mb-5">Read More</p>
-                <hr className='text-base-200 mb-0'/>
+                <Link to={`/news-details/${id}`} className="text-[#FF8C47] font-semibold py-2 cursor-pointer mb-5">Read More</Link>
+                <hr className='text-base-200 mb-0 mt-5' />
             </div>
-            
+
 
             {/* Footer: Rating & Views */}
             <div className="flex items-center justify-between px-4 py-5">
