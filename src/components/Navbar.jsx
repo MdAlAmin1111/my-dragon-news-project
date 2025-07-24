@@ -13,7 +13,7 @@ const Navbar = () => {
         return logOut();
         // signOut(auth);
     }
-
+    console.log(userInfo);
     return (
         <div className='flex justify-between items-baseline-last'>
             <div>{userInfo && userInfo.email}</div>
@@ -22,8 +22,8 @@ const Navbar = () => {
                 <NavLink to='/about'>About</NavLink>
                 <NavLink to='/career'>Career</NavLink>
             </div>
-            <div className='login_btn flex gap-4'>
-                <img src={user} alt="" />
+            <div className='login_btn flex gap-4 items-center'>
+                <img className='w-12 rounded-full' src={`${userInfo ? userInfo.photoURL : user}`} alt="" />
                 {
                     userInfo ? <button onClick={handleLogout} className='btn btn-primary px-8'>Logout</button> : <Link to={'/auth/login'} className='btn btn-primary px-8'>Login</Link>
                 }
