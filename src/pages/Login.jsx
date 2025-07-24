@@ -8,7 +8,6 @@ const Login = () => {
     const { loginUser } = useContext(AuthContext);
     const location = useLocation();
     const navigate = useNavigate();
-    // console.log(location, navigate);
 
     const handleLogin = (e) => {
         e.preventDefault();

@@ -13,7 +13,6 @@ const Navbar = () => {
         return logOut();
         // signOut(auth);
     }
-    console.log(userInfo);
     return (
         <div className='flex justify-between items-baseline-last'>
             <div>{userInfo && userInfo.email}</div>

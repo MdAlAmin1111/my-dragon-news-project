@@ -36,7 +36,6 @@ const Register = () => {
                         setUserInfo({ ...user, displayName: name, photoURL: photoUrl });
                     })
                     .catch((error) => {
-                        console.log(error);
                         setUserInfo(user);
                     })
             })
@@ -48,8 +47,6 @@ const Register = () => {
                 // alert(errorMessage);
 
             })
-
-        // console.log(name, photoUrl, email, password);
     }
 
     return (

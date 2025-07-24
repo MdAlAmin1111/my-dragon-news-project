@@ -7,6 +7,7 @@ import Register from "../pages/Register";
 import AuthLayout from "../layouts/AuthLayout";
 import PrivateRoute from "../provider/PrivateRoute";
 import NewsDetails from "../pages/NewsDetails";
+import Loading from "../pages/Loading";
 
 
 export const router = createBrowserRouter([
@@ -24,7 +25,13 @@ export const router = createBrowserRouter([
                 loader: async () => {
                     const response = await fetch('/news.json');
                     return response;
-                }
+                },
+                // loader: async () => {
+                //     await new Promise(resolve => setTimeout(resolve, 1000)); // 1 second delay
+                //     const response = await fetch('/news.json');
+                //     return response.json(); // optional: parse json
+                // },
+                hydrateFallbackElement: <Loading></Loading>
 
             }
         ]
@@ -47,7 +54,8 @@ export const router = createBrowserRouter([
     {
         path: '/news-details/:id',
         element: <PrivateRoute><NewsDetails></NewsDetails></PrivateRoute>,
-        loader: () => fetch("/news.json")
+        loader: () => fetch("/news.json"),
+        hydrateFallbackElement: <Loading></Loading>
     },
     {
         path: '*',
